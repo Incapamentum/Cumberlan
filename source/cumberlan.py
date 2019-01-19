@@ -1,19 +1,16 @@
 import discord
 
-TOKEN_fo = open("data/discord_bot_token.txt", "r")
-TOKEN = TOKEN_fo.read()
+TOKEN_FILE = "data/discord_bot_token.txt"
 
 client = discord.Client()
 
 @client.event
 async def on_message(message):
-	# Bot ain't gonna reply to itself here
+	"""Check for commands after each new message."""
+
+	# Skips messages sent by Cumberlan
 	if message.author == client.user:
 		return
-
-	if message.content.startswith("!hello"):
-		msg = "Hello {0.author.mention}".format(message)
-		await client.send_message(message.channel, msg)
 
 @client.event
 async def on_ready():
@@ -22,4 +19,10 @@ async def on_ready():
 	print(client.user.id)
 	print('------')
 
-client.run(TOKEN)
+def load_token():
+	"""Loads the Discord API authentication token."""
+	with open(TOKEN_FILE, "r") as token_file:
+		return token_file.read().strip()
+
+# Initializing the bot
+client.run(load_token())
