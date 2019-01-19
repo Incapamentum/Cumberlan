@@ -1,6 +1,7 @@
 import discord
 
-TOKEN = "NTM2MDY0NzAxOTkwMzA1ODAz.DyRRzw.UGku35w5arZUIxOYISU7o4IqqqI"
+TOKEN_fo = open("data/discord_bot_token.txt", "r")
+TOKEN = TOKEN_fo.read()
 
 client = discord.Client()
 
